@@ -1,0 +1,55 @@
+/* חלק ב, סעיף 3 – התאמה עם Bootstrap */
+* { box-sizing: border-box; }
+body { background: #fff; }
+
+/* מסגרת כללית + פס אדום עליון במובייל (<=750px) */
+.layout-container {
+  border: 3px solid red;
+  border-top: none; /* כמו חלק א: אין מסגרת עליונה, נוסף פס נפרד במובייל */
+  max-width: 1200px;
+}
+.layout-container::before {
+  content: "";
+  position: absolute;
+  top: 0; right: 0; left: 0;
+  height: 3px;
+  background: red;
+  z-index: 2;
+}
+
+/* קופסאות תוכן */
+.box {
+  border: 3px solid red;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+.box-short { min-height: 120px; }
+.box-tall  { min-height: 250px; }
+
+/* סרגל אנכי שמאלי (במסכים גדולים) – משחזר את ::after מחלק א */
+.left-sidebar {
+  position: relative;
+  border: none;
+}
+
+.left-sidebar::after {
+  content: "";
+  position: absolute;
+  top: -4px;                   /* במקום -10px */
+  right: 0;
+  height: calc(100% + 8px);    /* במקום +20px */
+  width: 5px;
+  background: red;
+}
+
+ 
+/* התאמה למובייל – ערימה אנכית טבעית דרך Bootstrap cols */
+@media (max-width: 750px) {
+  .box-short { min-height: 90px; }
+  .box-tall  { min-height: 180px; }
+  /* במובייל אין צורך בסרגל האנכי, הוא מוסתר יחד עם העמודה השמאלית */
+}
